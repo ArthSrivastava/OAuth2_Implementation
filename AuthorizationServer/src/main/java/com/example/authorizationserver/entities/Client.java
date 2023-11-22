@@ -7,6 +7,7 @@ import lombok.*;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
+import org.springframework.security.oauth2.server.authorization.settings.OAuth2TokenFormat;
 import org.springframework.security.oauth2.server.authorization.settings.TokenSettings;
 
 import java.time.Duration;
@@ -33,20 +34,20 @@ public class Client {
                 .clientId(registeredClient.getClientId())
                 .secret(registeredClient.getClientSecret())
                 .redirectUri( //Just for demo purpose
-                        registeredClient.getRedirectUris().stream().findAny().get())
-                .authMethod(registeredClient.getClientAuthenticationMethods().stream().findAny().get().getValue())
-                .scope(registeredClient.getScopes().stream().findAny().get())
-                .grantType(registeredClient.getAuthorizationGrantTypes().stream().findAny().get().getValue()).build();
+                        registeredClient.getRedirectUris().stream().findAny().orElseThrow())
+                .authMethod(registeredClient.getClientAuthenticationMethods().stream().findAny().orElseThrow().getValue())
+                .scope(registeredClient.getScopes().stream().findAny().orElseThrow())
+                .grantType(registeredClient.getAuthorizationGrantTypes().stream().findAny().orElseThrow().getValue()).build();
     }
 
     public static RegisteredClient from(Client client) {
-        return RegisteredClient.withId(String.valueOf(client.getClientId()))
+        return RegisteredClient.withId(String.valueOf(client.getId()))
                 .clientId(client.getClientId())
                 .clientSecret(client.getSecret())
                 .authorizationGrantType(new AuthorizationGrantType(client.getGrantType()))
                 .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
                 .tokenSettings(TokenSettings.builder()
-//            .accessTokenFormat(OAuth2TokenFormat.REFERENCE) // opaque
+//                        .accessTokenFormat(OAuth2TokenFormat.REFERENCE) // opaque
                         .accessTokenTimeToLive(Duration.ofHours(24)).build())
                 .clientAuthenticationMethod(new ClientAuthenticationMethod(client.getAuthMethod()))
                 .redirectUri(client.getRedirectUri())
