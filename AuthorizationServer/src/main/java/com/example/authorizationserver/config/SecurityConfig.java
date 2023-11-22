@@ -80,6 +80,8 @@ public class SecurityConfig {
                 .build();
     }
 
+    /*
+    //In-memory implementation
     @Bean
     public InMemoryUserDetailsManager inMemoryUserDetailsManager() {
         var u1 = User.withUsername("test")
@@ -88,12 +90,15 @@ public class SecurityConfig {
                 .build();
         return new InMemoryUserDetailsManager(u1);
     }
+     */
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
+    /*
+    // In-memory implementation
     @Bean
     public RegisteredClientRepository registeredClientRepository() {
         RegisteredClient registeredClient = RegisteredClient.withId(UUID.randomUUID().toString())
@@ -114,6 +119,7 @@ public class SecurityConfig {
                 .build();
         return new InMemoryRegisteredClientRepository(registeredClient);
     }
+     */
 
     @Bean
     public AuthorizationServerSettings authorizationServerSettings() {
