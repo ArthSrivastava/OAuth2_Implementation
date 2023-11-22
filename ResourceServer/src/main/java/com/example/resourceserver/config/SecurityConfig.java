@@ -12,11 +12,21 @@ public class SecurityConfig {
     @Value("${jwksUri}")
     public String jwksUri;
 
+    @Value("${introspectionUri}")
+    public String introspectionUri;
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+        //For non opaque token -> jwt
         httpSecurity.oauth2ResourceServer(
                 c -> c.jwt(j -> j.jwkSetUri(jwksUri).jwtAuthenticationConverter(new CustomJwtAuthenticationTokenConverter()))
         );
+
+        //For opaque token
+//        httpSecurity.oauth2ResourceServer(
+//                c -> c.opaqueToken(o -> o.introspectionUri(introspectionUri)
+//                        .introspectionClientCredentials("client", "secret"))
+//        );
         httpSecurity.authorizeHttpRequests(a -> a.anyRequest().authenticated());
         return httpSecurity.build();
     }
