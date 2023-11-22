@@ -9,6 +9,6 @@ public class DemoController {
 
     @GetMapping("/demo")
     public String demo(Authentication authentication) {
-        return "Demo!";
+        return "Hello from resource server!";
     }
 }
