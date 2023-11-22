@@ -11,6 +11,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -37,6 +38,7 @@ import java.security.KeyPairGenerator;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 import java.time.Duration;
+import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 import java.util.function.Consumer;
@@ -145,6 +147,10 @@ public class SecurityConfig {
     //Add more claims
     @Bean
     public OAuth2TokenCustomizer<JwtEncodingContext> oAuth2TokenCustomizer() {
-        return context -> context.getClaims().claim("test", "test_value");
+        return context -> {
+            context.getClaims().claim("test", "test_value");
+            Collection<? extends GrantedAuthority> authorities = context.getPrincipal().getAuthorities();
+            context.getClaims().claim("authorities", authorities.stream().map(GrantedAuthority::getAuthority).toList());
+        };
     }
 }

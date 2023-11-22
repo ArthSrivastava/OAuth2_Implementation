@@ -13,7 +13,7 @@ public class CustomClientService implements RegisteredClientRepository {
     private final ClientRepository clientRepository;
     @Override
     public void save(RegisteredClient registeredClient) {
-        clientRepository.save(Client.from(registeredClient));
+//        clientRepository.save(Client.from(registeredClient));
     }
 
     @Override
