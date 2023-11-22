@@ -45,7 +45,7 @@ public class Client {
                 .clientId(client.getClientId())
                 .clientSecret(client.getSecret())
                 .authorizationGrantType(new AuthorizationGrantType(client.getGrantType()))
-                .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
+                .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS) //For services acting as client
                 .tokenSettings(TokenSettings.builder()
 //                        .accessTokenFormat(OAuth2TokenFormat.REFERENCE) // opaque
                         .accessTokenTimeToLive(Duration.ofHours(24)).build())
