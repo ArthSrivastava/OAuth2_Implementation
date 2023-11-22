@@ -1,0 +1,4 @@
+
+jwksUri: http://localhost:8080/oauth2/jwks
+server:
+  port: 9090
