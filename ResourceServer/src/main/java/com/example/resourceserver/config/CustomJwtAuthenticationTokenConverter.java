@@ -9,12 +9,12 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtAut
 import java.util.List;
 
 
-public class CustomJwtAuthenticationTokenConverter implements Converter<Jwt, CustomJwtAUthenticationToken> {
+public class CustomJwtAuthenticationTokenConverter implements Converter<Jwt, CustomJwtAuthenticationToken> {
 
     @Override
-    public CustomJwtAUthenticationToken convert(Jwt source) {
+    public CustomJwtAuthenticationToken convert(Jwt source) {
         List<String> authorities = (List<String>) source.getClaims().get("authorities");
 //        JwtAuthenticationToken authObj = new JwtAuthenticationToken(source, authorities.stream().map(SimpleGrantedAuthority::new).toList());
-        return new CustomJwtAUthenticationToken(source, authorities.stream().map(SimpleGrantedAuthority::new).toList());
+        return new CustomJwtAuthenticationToken(source, authorities.stream().map(SimpleGrantedAuthority::new).toList());
     }
 }

@@ -1,6 +1,12 @@
 
-jwksUri: http://localhost:8080/oauth2/jwks
+jwksUri: http://localhost:8081/oauth2/jwks
 server:
   port: 9090
 
-introspectionUri: http://localhost:8080/oauth2/introspect
+introspectionUri: http://localhost:8082/oauth2/introspect
+#spring:
+#  security:
+#    oauth2:
+#      resourceserver:
+#        jwt:
+#          issuer-uri: http://localhost:8081

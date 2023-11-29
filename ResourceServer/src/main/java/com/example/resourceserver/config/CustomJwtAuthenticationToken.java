@@ -6,9 +6,9 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtAut
 
 import java.util.Collection;
 
-public class CustomJwtAUthenticationToken extends JwtAuthenticationToken {
+public class CustomJwtAuthenticationToken extends JwtAuthenticationToken {
     private String test;
-    public CustomJwtAUthenticationToken(Jwt jwt, Collection<? extends GrantedAuthority> authorities) {
+    public CustomJwtAuthenticationToken(Jwt jwt, Collection<? extends GrantedAuthority> authorities) {
         super(jwt, authorities);
         test = "random field";
     }
